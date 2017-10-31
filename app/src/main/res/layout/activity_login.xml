@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/layout_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login_background_main"
+                android:orientation="vertical"
+                android:focusableInTouchMode="true"
+                tools:context=".LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/login_main_opacity"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:id="@+id/rlLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etEmail"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                style="@style/LoginFieldStyle"/>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etPassword"
+                android:layout_below="@+id/etEmail"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:hint="@string/password"
+                android:inputType="textVisiblePassword"
+                style="@style/LoginFieldStyle"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPassword"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_login_selector"
+                android:textColor="@color/white_transparent_70"
+                android:text="@string/login"/>
+
+            <RelativeLayout
+                android:id="@+id/rlLoginLineSeparator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnLogin"
+                android:layout_centerInParent="true">
+
+                <View
+                    android:id="@+id/loginDivider1"
+                    android:layout_width="100dp"
+                    android:layout_height="1px"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white_transparent_70"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tvLoginOr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/loginDivider1"
+                    android:fontFamily="monospace"
+                    android:text="@string/or"
+                    android:textColor="@color/white_transparent_70"/>
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1px"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/tvLoginOr"
+                    android:background="@color/white_transparent_70"/>
+
+            </RelativeLayout>
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnLoginWithGoogle"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/rlLoginLineSeparator"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_login_selector"
+                app:buttonSize="wide"
+                style="@style/LoginBtnStyle"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvRegistrationQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/do_not_have_account_yet"
+                android:textColor="@color/white_transparent_70"
+                android:textSize="16sp"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvRegistr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/tvRegistrationQuestion"
+                android:fontFamily="sans-serif"
+                android:text="@string/registration"
+                android:textColor="@color/white_transparent_95"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
