@@ -12,8 +12,8 @@ import com.dsemeniuc.stylistclientmanager.base.FirebaseApi;
 import com.dsemeniuc.stylistclientmanager.entity.AppUser;
 import com.dsemeniuc.stylistclientmanager.utils.SharedPreferencesWrapper;
 import com.dsemeniuc.stylistclientmanager.utils.Utils;
-
-import java.util.List;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Singleton;
 
@@ -24,9 +24,11 @@ import dagger.Provides;
 public class AppModule {
 
     private App app;
+    private FirebaseAuth firebaseAuth;
 
     public AppModule(App app) {
         this.app = app;
+        FirebaseApp.initializeApp(app.getApplicationContext());
     }
 
     @Provides

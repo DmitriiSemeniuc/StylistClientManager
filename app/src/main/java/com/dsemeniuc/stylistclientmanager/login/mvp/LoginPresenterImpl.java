@@ -62,22 +62,26 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Const.Action.SIGN_IN) {
+            view.showProgress();
             loginInteractor.onLoginWithGoogle(Auth.GoogleSignInApi.getSignInResultFromIntent(data), this);
         }
     }
 
     @Override
     public void onLoginSuccess() {
+        view.hideProgress();
         view.goToMainScreen();
     }
 
     @Override
     public void onLoginError() {
+        view.hideProgress();
         view.onError(R.string.error_cannot_login);
     }
 
     @Override
     public void onNoInternetAccess() {
+        view.hideProgress();
         view.onError(R.string.error_no_internet_connection);
     }
 }

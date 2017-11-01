@@ -10,11 +10,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class GoogleAuthenticator implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleSignInOptions gso;
     private GoogleApiClient apiClient;
+    private FirebaseAuth firebaseAuth;
 
     public GoogleAuthenticator(){
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -33,8 +35,16 @@ public class GoogleAuthenticator implements GoogleApiClient.OnConnectionFailedLi
             .build();
     }
 
+    public void setFirebaseAuth(){
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
     public GoogleApiClient getApiClient() {
         return apiClient;
+    }
+
+    public FirebaseAuth getFirebaseAuth(){
+        return firebaseAuth;
     }
 
     public OptionalPendingResult<GoogleSignInResult> getOptionalPendingResult() {

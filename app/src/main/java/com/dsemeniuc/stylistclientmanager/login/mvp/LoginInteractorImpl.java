@@ -14,20 +14,15 @@ import com.dsemeniuc.stylistclientmanager.utils.Utils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
-
-import java.util.concurrent.Callable;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.schedulers.Schedulers;
 
-public class LoginInteractorImpl implements LoginInteractor {
+public class LoginInteractorImpl implements LoginInteractor, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LoginInteractorImpl.class.getSimpleName();
     private Api api;
@@ -57,10 +52,7 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Override
     public void  onLoginWithGoogle(GoogleSignInResult result, OnLoginListener listener) {
         if(result.isSuccess()){
-            setAppUser(result.getSignInAccount());
-            sp.saveUser(appUser.getMe());
-            sp.setUserLogged();
-            listener.onLoginSuccess();
+            firebaseAuthWithGoogle(result.getSignInAccount(), listener);
         } else {
             if(utils.isNetworkAvailable()){
                 listener.onLoginError();
@@ -71,34 +63,58 @@ public class LoginInteractorImpl implements LoginInteractor {
     }
 
     @Override
-    public void silentSignInWithGoogle(OptionalPendingResult<GoogleSignInResult> opr, LoginPresenter presenter) {
+    public void firebaseAuthWithGoogle(GoogleSignInAccount acct, OnLoginListener listener){
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        googleAuthenticator.getFirebaseAuth().signInWithCredential(credential)
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    FirebaseUser user = googleAuthenticator.getFirebaseAuth().getCurrentUser();
+                    setAppUser(user);
+                    sp.saveUser(appUser.getMe());
+                    sp.setUserLogged();
+                    listener.onLoginSuccess();
+                } else {
+                    // If sign in fails, display a message to the user.
+                    if(utils.isNetworkAvailable()){
+                        listener.onLoginError();
+                    } else {
+                        listener.onNoInternetAccess();
+                    }
+                }
+            });
+    }
+
+    @Override
+    public void silentSignInWithGoogle(OptionalPendingResult<GoogleSignInResult> opr, OnLoginListener listener) {
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
-            handleGoogleSignInResult(result, presenter);
+            handleGoogleSignInResult(result, listener);
         } else {
-            presenter.onShowProgressDialog();
+            //presenter.onShowProgressDialog();
             opr.setResultCallback(googleSignInResult -> {
-                presenter.onHideProgressDialog();
-                handleGoogleSignInResult(googleSignInResult, presenter);
+                //presenter.onHideProgressDialog();
+                handleGoogleSignInResult(googleSignInResult, listener);
             });
         }
     }
 
-    private void setAppUser(GoogleSignInAccount account){
+    private void setAppUser(FirebaseUser user){
         Me me = new Me();
-        me.setId(account.getId());
-        me.setName(account.getDisplayName());
-        me.setEmail(account.getEmail());
-        if(account.getPhotoUrl() != null){
-            me.setPhotoUrl(account.getPhotoUrl().toString());
+        me.setId(user.getUid());
+        me.setName(user.getDisplayName());
+        me.setEmail(user.getEmail());
+        if(user.getPhotoUrl() != null){
+            me.setPhotoUrl(user.getPhotoUrl().toString());
         }
         appUser.setMe(me);
     }
 
     @Override
-    public void auth(Context context, FragmentActivity activity, LoginPresenter presenter) {
+    public void auth(Context context, FragmentActivity activity, OnLoginListener listener) {
         setGoogleApiClient(context, activity);
-        silentSignInWithGoogle(googleAuthenticator.getOptionalPendingResult(), presenter);
+        setFirebaseAuth();
+        silentSignInWithGoogle(googleAuthenticator.getOptionalPendingResult(), listener);
     }
 
     @Override
@@ -106,19 +122,24 @@ public class LoginInteractorImpl implements LoginInteractor {
         googleAuthenticator.setGoogleApiClient(context, activity);
     }
 
+    public void setFirebaseAuth(){
+        googleAuthenticator.setFirebaseAuth();
+    }
+
     /**
      * Handle Sign In result.
      * If result success -> go to Sign In Activity and finish this
      */
-    private void handleGoogleSignInResult(GoogleSignInResult result, final LoginPresenter presenter) {
+    private void handleGoogleSignInResult(GoogleSignInResult result, final OnLoginListener listener) {
         if (result.isSuccess()){
-            setAppUser(result.getSignInAccount());
-            presenter.goToMainScreen();
+            firebaseAuthWithGoogle(result.getSignInAccount(), listener);
+        } else {
+            listener.onLoginError();
         }
     }
 
     @Override
-    public Single<Me> login() {
-        return null;
+    public void onConnectionFailed(@android.support.annotation.NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 }
