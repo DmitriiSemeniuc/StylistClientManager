@@ -9,5 +9,15 @@ public interface LoginPresenter extends BasePresenter {
 
     void loginWithGoogle();
 
-    void verifyUserType(Context context, FragmentActivity activity);
+    void authenticate(Context context, FragmentActivity activity, boolean logged);
+
+    void auth(Context context, FragmentActivity activity);
+
+    void setGoogleApiClient(Context context, FragmentActivity activity);
+
+    void goToMainScreen();
+
+    void onShowProgressDialog();
+
+    void onHideProgressDialog();
 }

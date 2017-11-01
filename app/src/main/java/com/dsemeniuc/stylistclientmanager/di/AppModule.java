@@ -11,6 +11,7 @@ import com.dsemeniuc.stylistclientmanager.base.Const;
 import com.dsemeniuc.stylistclientmanager.base.FirebaseApi;
 import com.dsemeniuc.stylistclientmanager.entity.AppUser;
 import com.dsemeniuc.stylistclientmanager.utils.SharedPreferencesWrapper;
+import com.dsemeniuc.stylistclientmanager.utils.Utils;
 
 import java.util.List;
 
@@ -59,7 +60,20 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton SharedPreferencesWrapper providesSharedPreferencesWrapper(Context context){
+    @Singleton
+    Context providesContext(){
+        return app.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferencesWrapper providesSharedPreferencesWrapper(Context context) {
         return new SharedPreferencesWrapper(context);
+    }
+
+    @Provides
+    @Singleton
+    Utils providesUtils(Context context){
+        return new Utils(context);
     }
 }

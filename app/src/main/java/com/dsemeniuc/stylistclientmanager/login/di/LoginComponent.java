@@ -1,6 +1,6 @@
 package com.dsemeniuc.stylistclientmanager.login.di;
 
-import com.dsemeniuc.stylistclientmanager.LoginActivity;
+import com.dsemeniuc.stylistclientmanager.login.LoginActivity;
 import com.dsemeniuc.stylistclientmanager.di.AppComponent;
 
 import dagger.Component;

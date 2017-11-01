@@ -5,6 +5,7 @@ import com.dsemeniuc.stylistclientmanager.base.Api;
 import com.dsemeniuc.stylistclientmanager.base.App;
 import com.dsemeniuc.stylistclientmanager.entity.AppUser;
 import com.dsemeniuc.stylistclientmanager.utils.SharedPreferencesWrapper;
+import com.dsemeniuc.stylistclientmanager.utils.Utils;
 
 import javax.inject.Singleton;
 
@@ -23,4 +24,6 @@ public interface AppComponent {
     GoogleAuthenticator getGoogleAuthenticator();
 
     SharedPreferencesWrapper getSharedPreferencesWrapper();
+
+    Utils getUtils();
 }

@@ -8,7 +8,7 @@
                 android:background="@drawable/login_background_main"
                 android:orientation="vertical"
                 android:focusableInTouchMode="true"
-                tools:context=".LoginActivity">
+                tools:context=".login.LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

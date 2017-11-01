@@ -6,4 +6,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="please_wait">Please wait</string>
+    <string name="error_cannot_login">Cannot login</string>
+    <string name="error_no_internet_connection">Cannot login, please verify your internet connection</string>
 </resources>

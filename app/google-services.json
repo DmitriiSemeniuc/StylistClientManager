@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "918025647450",
+    "project_id": "stylistclientmanager"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918025647450:android:9871f22a6f66814c",
+        "android_client_info": {
+          "package_name": "com.dsemeniuc.stylistclientmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918025647450-4t8e3qdjd6rghilihcbi9jj89hp5emse.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "918025647450-7kp1td1bt2h7j4uoi2h9du2t4h44o6f3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dsemeniuc.stylistclientmanager",
+            "certificate_hash": "bf12c8c81911b71d50b9a5bd25624c4dcc62de7b"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOe0I2p8hlzdfd6O6qSAEydIMspLkJuoQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,12 +9,12 @@ public class Const {
     }
 
     public class User {
-        public static final String EXISTED = "existed user";
         public static final String NEW = "new user";
         public static final String LOGGED = "logged user";
         public static final String GOOGLE = "google user";
-        public static final String REGISTERED = "registered user";
+        public static final String FACEBOOK = "facebook user";
+        public static final String ID = "user id";
+        public static final String NAME = "user name";
         public static final String EMAIL = "user email";
-        public static final String EMAIL_NOT_EXIST = "";
     }
 }

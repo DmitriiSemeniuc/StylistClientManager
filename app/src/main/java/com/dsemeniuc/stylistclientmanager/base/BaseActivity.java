@@ -1,5 +1,6 @@
 package com.dsemeniuc.stylistclientmanager.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -72,18 +73,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*switch (requestCode) {
-            case REQUEST_CHECK_LOCATION_SETTINGS:
-                if (resultCode == RESULT_OK)
-                    if (getLocationEnabledSubject().hasObservers())
-                        AndroidSchedulers.mainThread().scheduleDirect(() -> getLocationEnabledSubject().onNext(new LocationEnabledEvent()));
-                break;
-            default:
-                presenter.onActivityResult(requestCode, resultCode, data);
-        }*/
     }
 
     public App getApp(){
         return (App) getApplication();
+    }
+
+    public static boolean checkNotNull(Object obj){
+        return obj != null;
     }
 }

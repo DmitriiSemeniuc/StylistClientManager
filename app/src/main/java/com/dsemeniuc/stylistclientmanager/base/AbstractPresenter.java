@@ -1,7 +1,5 @@
 package com.dsemeniuc.stylistclientmanager.base;
 
-import android.content.Intent;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -41,16 +39,11 @@ public abstract class AbstractPresenter<V extends BaseView> implements BasePrese
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
     protected void addDisposable(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
-    public static void disposeDisposable(Disposable disposable) {
+    private static void disposeDisposable(Disposable disposable) {
         if (disposable != null && !disposable.isDisposed())
             disposable.dispose();
     }

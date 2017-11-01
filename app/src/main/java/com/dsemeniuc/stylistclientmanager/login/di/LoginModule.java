@@ -9,6 +9,7 @@ import com.dsemeniuc.stylistclientmanager.login.mvp.LoginPresenter;
 import com.dsemeniuc.stylistclientmanager.login.mvp.LoginPresenterImpl;
 import com.dsemeniuc.stylistclientmanager.login.mvp.LoginView;
 import com.dsemeniuc.stylistclientmanager.utils.SharedPreferencesWrapper;
+import com.dsemeniuc.stylistclientmanager.utils.Utils;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,7 +31,8 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    LoginInteractor providesInteractor(Api api, AppUser appUser, GoogleAuthenticator authenticator, SharedPreferencesWrapper sp) {
-        return new LoginInteractorImpl(api, appUser, authenticator, sp);
+    LoginInteractor providesInteractor(Api api, AppUser appUser, GoogleAuthenticator authenticator,
+                                       SharedPreferencesWrapper sp, Utils utils) {
+        return new LoginInteractorImpl(api, appUser, authenticator, sp, utils);
     }
 }

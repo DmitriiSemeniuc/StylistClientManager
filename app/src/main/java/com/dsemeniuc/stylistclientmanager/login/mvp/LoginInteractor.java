@@ -12,20 +12,25 @@ import io.reactivex.Single;
 
 public interface LoginInteractor {
 
-    Intent loginWithGoogle();
+    Single<Intent> loginWithGoogle();
 
-    void verifyUserType(Context ctx, FragmentActivity activity,
-                        OnVerifyUserTypeListener listener, LoginPresenter presenter);
+    void onLoginWithGoogle(GoogleSignInResult result, OnLoginListener listener);
 
     void silentSignInWithGoogle(final OptionalPendingResult<GoogleSignInResult> opr,
                                 final LoginPresenter presenter);
 
+    void auth(Context context, FragmentActivity activity, LoginPresenter presenter);
+
+    void setGoogleApiClient(Context context, FragmentActivity activity);
+
     Single<Me> login();
 
-    interface OnVerifyUserTypeListener {
+    interface OnLoginListener{
 
-        void onUserSavingSuccess();
+        void onLoginSuccess();
 
-        void onUserSavingFailed();
+        void onLoginError();
+
+        void onNoInternetAccess();
     }
 }
